@@ -49,10 +49,9 @@ const Login = () => {
         }
 
         handleLogin(finalyUser)
-        console.log(finalyUser)
         navigate("/")
       }
-      navigate("/")
+ 
     } catch (err) {
       console.log(err)
     }
@@ -61,8 +60,15 @@ const Login = () => {
 
   const googleSingIn = async () => {
     const res = await loginGoogle()
-    console.log(res)
+    let finalyUser = {
+      email: res.user.email,
+      rol: 'user'
+    }
+
+    handleLogin(finalyUser)
+    navigate("/")
   }
+  
 
 
   return (
