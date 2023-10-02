@@ -64,8 +64,7 @@ const Checkout = () => {
             }
         })
         try {
-            let response = await axios.post("https://backend-apple.vercel.app/create_preference", {
-                //"https://backend-apple-qy2pv1ost-andru890.vercel.app/create_preference"
+            let response = await axios.post("https://backend-apple-qy2pv1ost-andru890.vercel.app/create_preference", {
                 items: newArray,
                 shipment_cost: shipmentCost
             })
