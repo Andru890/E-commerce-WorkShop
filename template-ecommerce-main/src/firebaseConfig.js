@@ -2,6 +2,11 @@
 import { initializeApp } from "firebase/app";
 import { signInWithEmailAndPassword, getAuth, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import {getFirestore} from "firebase/firestore"
+import {getStorage, ref , uploadBytes, getDownloadURL } from 'firebase/storage'
+import {v4} from 'uuid'
+
+
+
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APIKEY,
@@ -15,6 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 export const db = getFirestore(app)
+const storage = getStorage(app)
 
 // login
 export const onSigIn = async ({ email, password }) => {
@@ -65,4 +71,13 @@ export const forgotPassword = async ({ email }) => {
     console.log("Error al enviar el correo electrónico de restablecimiento de contraseña:", error);
   }
 };
+
+
+// storage
+export const uploadFile = async (file)=> {
+  const storageRef = ref(storage, v4())
+  await uploadBytes(storageRef, file)
+  let url = await getDownloadURL(storageRef)
+  return url
+}
 
